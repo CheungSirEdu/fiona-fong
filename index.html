@@ -206,11 +206,13 @@
 
     @media (max-width: 860px) {
       .cat-grid { grid-template-columns: 1fr 1fr; }
+      .brand { order: 1; }
+      .top-actions { order: 2; margin-left: auto; }
       nav.cats {
-        order: 3; width: 100%; justify-content: flex-start;
-        overflow-x: auto; flex-wrap: nowrap; padding-bottom: 2px;
+        order: 3; flex: 1 0 100%; width: 100%;
+        justify-content: flex-start; overflow-x: auto;
+        flex-wrap: nowrap; padding-bottom: 2px;
       }
-      .top-actions { margin-left: auto; }
     }
     @media (max-width: 640px) {
       .work-grid { grid-template-columns: 1fr; }
