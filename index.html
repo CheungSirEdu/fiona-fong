@@ -59,7 +59,7 @@
     nav.cats a, nav.cats button.linkish {
       text-decoration: none; background: none; border: 0;
       padding: 8px 12px; min-height: 40px; color: var(--muted); font-weight: 700; font-size: 14px;
-      border-bottom: 2px solid transparent;
+      border-bottom: 2px solid transparent; white-space: nowrap; flex-shrink: 0;
     }
     nav.cats a.on, nav.cats a:hover { color: var(--ink); border-bottom-color: var(--accent); }
     .top-actions { display: flex; gap: 8px; margin-left: auto; }
@@ -206,8 +206,11 @@
 
     @media (max-width: 860px) {
       .cat-grid { grid-template-columns: 1fr 1fr; }
-      nav.cats { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
-      .top-actions { margin-left: 0; }
+      nav.cats {
+        order: 3; width: 100%; justify-content: flex-start;
+        overflow-x: auto; flex-wrap: nowrap; padding-bottom: 2px;
+      }
+      .top-actions { margin-left: auto; }
     }
     @media (max-width: 640px) {
       .work-grid { grid-template-columns: 1fr; }
