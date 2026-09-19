@@ -147,6 +147,14 @@
     article.story .by { color: var(--muted); font-size: 14px; margin: 0 0 22px; }
     article.story .body { font-size: 17px; line-height: 1.9; max-width: 42em; }
     article.story .body p { margin: 0 0 1em; }
+    article.story .body h2 {
+      font-family: "Noto Serif TC", serif; font-size: 22px; line-height: 1.4;
+      margin: 1.6em 0 .7em;
+    }
+    figure.story-fig { margin: 22px 0 28px; max-width: 42em; }
+    figure.story-fig img { width: 100%; cursor: pointer; }
+    figure.story-fig figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; line-height: 1.55; }
+    figure.story-fig figcaption:empty { display: none; }
     .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin: 22px 0; }
     .gallery img, .thumbs img { width: 100%; height: 160px; object-fit: cover; cursor: pointer; }
     .video-wrap { position: relative; padding-top: 56.25%; margin: 18px 0 24px; background: #000; }
@@ -707,7 +715,18 @@
 
     function paragraphs(text) {
       const bits = String(text || "").split(/\n{2,}/);
-      return bits.map(p => `<p>${escapeHtml(p).replace(/\n/g, "<br>")}</p>`).join("");
+      return bits.map(raw => {
+        const p = String(raw || "").trim();
+        const fig = p.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+        if (fig) {
+          const cap = escapeHtml(fig[1]);
+          const src = escapeHtml(fig[2]);
+          return `<figure class="story-fig"><img src="${src}" alt="${cap}"><figcaption>${cap}</figcaption></figure>`;
+        }
+        const h = p.match(/^##\s+(.+)/);
+        if (h) return `<h2>${escapeHtml(h[1])}</h2>`;
+        return `<p>${escapeHtml(p).replace(/\n/g, "<br>")}</p>`;
+      }).join("");
     }
 
     function renderWork(id) {
@@ -732,7 +751,7 @@
           ${w.link ? `<p class="outlink"><a class="btn" href="${escapeHtml(w.link)}" target="_blank" rel="noopener">查看原文／連結</a></p>` : ""}
         </article>
       `;
-      $("app").querySelectorAll(".hero-cover img, .gallery img").forEach(img => {
+      $("app").querySelectorAll(".hero-cover img, .gallery img, .story-fig img").forEach(img => {
         img.addEventListener("click", () => lightbox(img.src));
       });
     }
