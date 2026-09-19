@@ -36,9 +36,9 @@ def encrypt(pin, token):
 
 
 def main():
-    pin = os.environ.get("FF_PIN") or getpass.getpass("請輸入編輯密碼（至少 6 位）：")
+    pin = os.environ.get("FF_PIN") or getpass.getpass("請輸入編輯密碼（至少 4 位）：")
     pin = pin.strip()
-    if len(pin) < 6:
+    if len(pin) < 4:
         sys.exit("密碼太短")
     if not os.environ.get("FF_PIN"):
         pin2 = getpass.getpass("再輸入一次：").strip()

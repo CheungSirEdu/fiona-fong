@@ -924,7 +924,7 @@
       openModal(`
         <h3>${first ? "設定編輯" : "設定上網權限"}</h3>
         <p style="color:var(--muted);font-size:14px;line-height:1.6">密碼用來開編輯。GitHub Token 用來把改動寫上網站。Token 只存在加密檔，唔好公開貼出嚟。</p>
-        <label class="edit-label">編輯密碼（至少 6 位）</label>
+        <label class="edit-label">編輯密碼（至少 4 位）</label>
         <input class="field" id="sPin" type="password" autocomplete="off">
         <label class="edit-label">GitHub Token（repo 權限）</label>
         <input class="field" id="sTok" type="password" autocomplete="off" placeholder="ghp_… 或 github_pat_…">
@@ -936,7 +936,7 @@
       $("mOk").onclick = async () => {
         const pin = $("sPin").value.trim();
         const tok = $("sTok").value.trim();
-        if (pin.length < 6) { toast("密碼至少 6 位"); return; }
+        if (pin.length < 4) { toast("密碼至少 4 位"); return; }
         if (!/^(gh[pous]_|github_pat_)/.test(tok)) { toast("Token 格式唔對"); return; }
         try {
           ghToken = tok;
